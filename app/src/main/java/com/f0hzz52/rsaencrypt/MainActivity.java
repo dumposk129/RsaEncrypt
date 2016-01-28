@@ -1,11 +1,14 @@
 package com.f0hzz52.rsaencrypt;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -17,6 +20,8 @@ import javax.crypto.Cipher;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnDecrypt;
     @Bind(R.id.tvOriginal)
     TextView tvOriginal;
+    @Bind(R.id.rootLayout)
+    CoordinatorLayout rootLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        btnEncrypt.setOnClickListener(new View.OnClickListener() {
+
+
+        /*btnEncrypt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -57,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
 
-        btnDecrypt.setOnClickListener(new View.OnClickListener() {
+     /*   btnDecrypt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -69,7 +79,47 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
+    }
+
+    @OnClick(R.id.btnEncrypt)
+    public void btnEncryptClick() {
+        try {
+            tvRaw.setText(encrypt(txtInputMessage.getText().toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnLongClick(R.id.btnEncrypt)
+    public boolean btnEncryptLongClick() {
+        Toast.makeText(getApplicationContext(), "Encrypt Long Click", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @OnClick(R.id.btnDecrypt)
+    public void btnDecryptClick() {
+        try {
+            tvOriginal.setText(String.valueOf(decrypt(tvRaw.getText().toString())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnLongClick(R.id.btnDecrypt)
+    public boolean btnDecryptLongClick() {
+        Snackbar.make(rootLayout, "Decrypt Long Click", Snackbar.LENGTH_SHORT)
+                .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(getApplicationContext(), "Snackbar Action Clicked", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                )
+                .show();
+
+
+        return true;
     }
 
     public void generateKey() throws Exception {
@@ -133,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < b.length; i += 2) {
             String item = new String(b, i, 2);
 
-            bytes[i/2] = (byte) Integer.parseInt(item, 16);
+            bytes[i / 2] = (byte) Integer.parseInt(item, 16);
         }
 
         return bytes;

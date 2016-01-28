@@ -24,25 +24,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="Encrypt it by PublicKey"/>
+        android:text="Encrypt it by PublicKey" />
 
     <TextView
         android:id="@+id/tvRaw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="Encrypted Message"/>
+        android:text="Encrypted Message" />
 
 
     <Button
         android:id="@+id/btnDecrypt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Decrypt it by PrivateKey"/>
+        android:text="Decrypt it by PrivateKey" />
 
     <TextView
         android:id="@+id/tvOriginal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Original Message"/>
+        android:text="Original Message" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
 </LinearLayout>
